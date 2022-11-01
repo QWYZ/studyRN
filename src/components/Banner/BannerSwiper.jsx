@@ -24,7 +24,7 @@ const BannerSwiper = (props) => {
                 images.map((item, i) => {
 
                     return (
-                        <Image key={i} source={item.url} style={styles.img} />
+                        <Image key={i} source={{uri:item.uri}} style={styles.img} />
                     )
                 })
             }

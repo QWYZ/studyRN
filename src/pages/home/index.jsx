@@ -5,10 +5,9 @@ import BannerSwiper from '../../components/Banner/BannerSwiper'
 // import { BannerCarousel, BannerSwiper } from '../../components/Banner'
 
 const imageOptions = [
-  {url:require('../../asset/images/1.jpg')},
-  {url:require('../../asset/images/2.jpg')},
-  {url:require('../../asset/images/3.jpg')}
-
+  {uri:'https://images.alphacoders.com/128/1283924.jpg'},
+  {uri:'https://images4.alphacoders.com/112/1129086.png'},
+  {uri:'https://images2.alphacoders.com/127/1272824.png'}
 ]
 
 const Home = () => {
