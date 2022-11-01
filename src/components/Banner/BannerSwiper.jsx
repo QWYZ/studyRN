@@ -19,6 +19,8 @@ const BannerSwiper = (props) => {
             paginationStyle={{ bottom: 2 }}
             showsButtons={false}
             autoplay
+            autoplayTimeout={2}
+            removeClippedSubviews={false}//解决andriod闪屏问题
         >
             {
                 images.map((item, i) => {

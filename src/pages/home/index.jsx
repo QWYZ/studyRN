@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StatusBar, Text, View } from 'react-native'
 // import BannerCarousel from '../../components/Banner/BannerCarousel'
 import BannerSwiper from '../../components/Banner/BannerSwiper'
+import { getStorageData } from '../../utils/storage'
 // import { BannerCarousel, BannerSwiper } from '../../components/Banner'
 
 const imageOptions = [
@@ -10,10 +11,17 @@ const imageOptions = [
   {uri:'https://images2.alphacoders.com/127/1272824.png'}
 ]
 
-const Home = () => {
-
-
-
+const Home = (props) => {
+  console.log('home:',props);
+  useEffect(async()=>{
+    const token = await getStorageData('token');
+    console.log('token2:',token);
+  },[])
+   getStorageData('token').then(e =>{
+    console.log('token1',e);
+   })
+  //  let token = await getStorageData('token');
+  //  console.log('token2:',token);
   return (
     <View style={{height:200}}>
       <BannerSwiper images={imageOptions} />

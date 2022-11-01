@@ -21,13 +21,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import TabRoute from './src/routes/TabRoute';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/pages/login';
+import { storeStorageData } from './src/utils/storage';
 
 
 const Stack = createNativeStackNavigator()
 const App: () => Node = () => {
+  storeStorageData('token','123456');
 
   const TabRouteCallBack = useCallback(()=> <TabRoute />,[])
-
   return (
     <NavigationContainer>
       <StatusBar 
