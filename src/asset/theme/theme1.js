@@ -3,6 +3,7 @@ export default {
     primary: '#3F51B5',//主题颜色
     primary3: '#10AEff',//次级主色
     primary2: '#6DD5FA',//
+    backgroundColor: 'white',
     border: '#e0e0e0',
     fontcolor: '#333333',//font
     fontcolor_2: '#555555',//次级黑色font

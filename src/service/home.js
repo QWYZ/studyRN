@@ -8,6 +8,7 @@ export const getRandomImage = async (params) => {
     //     method: 'GET',
     // })
     return request.get('https://api.oick.cn/random/api.php',{
+        responseType: 'arraybuffer',
         params: params,
     })
 }

@@ -1,14 +1,25 @@
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
- axios.defaults.timeout = 100000;
- axios.defaults.baseURL = "";
+ const baseURL = "";
 
- const request = axios.create({
-  timeout:30000,
-  headers:{
-    "Content-Type": "application/x-www-form-urlencoded"
-  }
- })
+const request = axios.create({
+  baseURL,
+  headers: {
+    get: {
+      // get请求头配置
+      // 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      // 'Accept': 'application/json'
+    },
+    post: {
+      // post请求头配置
+      // 'Content-Type': 'application/json;charset=utf-8',
+      // 'Accept': 'application/json'
+    }
+  },
+  timeout: 30000, //30s 如果请求花费了超过 `timeout` 的时间，请求将被中断
+    // retry: 2,//设置全局请求次数
+    // retryDelay: 1000 // 设置全局请求间隔时间
+})
  /**
   * http request 拦截器
   */
@@ -17,14 +28,16 @@ import { AsyncStorage } from 'react-native';
     // const token = await AsyncStorage.getItem('token')
     // console.log('token_请求拦截', token);
     const headers = {};
+    config = {
+      ...config,
+      url:baseURL + config.url,
+      headers: headers || config?.headers,
+    }
     // token ? headers['X-Access-Token'] = token : null;
     // token ? headers['Authorization'] = "Bearer " + token : null;
+    console.log('请求拦截：',config);
 
-     return {
-      ...config,
-      url: config.url,
-      headers: headers || config?.headers,
-     };
+     return config;
    },
    (error) => {
      return Promise.reject(error);
@@ -36,9 +49,9 @@ import { AsyncStorage } from 'react-native';
   */
   request.interceptors.response.use(
    (response) => {
-     if (response.data.errCode === 2) {
-       console.log("过期");
-     }
+
+     console.log('响应拦截：',response);
+
      return response;
    },
    (error) => {
