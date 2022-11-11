@@ -64,4 +64,4 @@ resolver: {
 
 ## 4、其他
 国际化方案参考：[https://blog.csdn.net/isKelel/article/details/123070685](https://blog.csdn.net/isKelel/article/details/123070685)
-
+第三方APi:[https://github.com/fangzesheng/free-api](https://github.com/fangzesheng/free-api)
