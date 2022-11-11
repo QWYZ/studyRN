@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
-import { StatusBar, Text, View } from 'react-native'
+import React, { useEffect } from 'react';
+import { StatusBar, Text, View } from 'react-native';
 // import BannerCarousel from '../../components/Banner/BannerCarousel'
-import BannerSwiper from '../../components/Banner/BannerSwiper'
-import { getStorageData } from '../../utils/storage'
+import BannerSwiper from '../../components/Banner/BannerSwiper';
+import { getRandomImage } from '../../service/home';
+import { getStorageData } from '../../utils/storage';
 // import { BannerCarousel, BannerSwiper } from '../../components/Banner'
 
 const imageOptions = [
@@ -13,20 +14,25 @@ const imageOptions = [
 
 const Home = (props) => {
   console.log('home:',props);
-  useEffect(async()=>{
-    const token = await getStorageData('token');
-    console.log('token2:',token);
+  useEffect(()=>{
+    getToken();
+    // const token = await getStorageData('token');
+    // const res = await getSomeData();
+    // console.log('token2:',token);
   },[])
-   getStorageData('token').then(e =>{
-    console.log('token1',e);
-   })
+
+  const getToken = async() =>{
+    // const token = await getStorageData('token');
+    const res = await getRandomImage({type:'pe'});
+    console.log('token2:',res);
+  }
+
   //  let token = await getStorageData('token');
   //  console.log('token2:',token);
   return (
-    <View style={{height:200}}>
-      <BannerSwiper images={imageOptions} />
+    <View>
+      <BannerSwiper height={220} images={imageOptions} />
       <Text>Home</Text>
-      {/* <BannerCarousel images={imageOptions} /> */}
     </View>
   )
 }

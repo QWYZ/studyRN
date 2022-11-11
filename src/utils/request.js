@@ -5,17 +5,20 @@ import { AsyncStorage } from 'react-native';
 
  const request = axios.create({
   timeout:30000,
+  headers:{
+    "Content-Type": "application/x-www-form-urlencoded"
+  }
  })
  /**
   * http request 拦截器
   */
   request.interceptors.request.use(
    async(config) => {
-    const token = await AsyncStorage.getItem('token')
+    // const token = await AsyncStorage.getItem('token')
     // console.log('token_请求拦截', token);
     const headers = {};
     // token ? headers['X-Access-Token'] = token : null;
-    token ? headers['Authorization'] = "Bearer " + token : null;
+    // token ? headers['Authorization'] = "Bearer " + token : null;
 
      return {
       ...config,

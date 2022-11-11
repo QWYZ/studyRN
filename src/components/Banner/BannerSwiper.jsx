@@ -8,40 +8,39 @@ import Swiper from 'react-native-swiper';
  */
 const BannerSwiper = (props) => {
 
-    const { images } = props
+    const { images, height = 200 } = props
 
     return (
-        <Swiper
-            style={styles.swiper}
-            height={200}
-            loop={true}
-            horizontal={true}
-            paginationStyle={{ bottom: 2 }}
-            showsButtons={false}
-            autoplay
-            autoplayTimeout={2}
-            removeClippedSubviews={false}//解决andriod闪屏问题
-        >
-            {
-                images.map((item, i) => {
+        <View style={{ height: height }}>
+            <Swiper
+                style={styles.swiper}
+                height={height}
+                loop={true}
+                horizontal={true}
+                paginationStyle={{ bottom: 2 }}
+                showsButtons={false}
+                autoplay
+                autoplayTimeout={2}
+                removeClippedSubviews={false}//解决andriod闪屏问题
+            >
+                {
+                    images.map((item, i) => {
 
-                    return (
-                        <Image key={i} source={{uri:item.uri}} style={styles.img} />
-                    )
-                })
-            }
-        </Swiper>
+                        return (
+                            <Image key={i} source={{ uri: item.uri }} style={{...styles.img,height:height}} />
+                        )
+                    })
+                }
+            </Swiper>
+        </View>
+
 
     )
 }
 
 const styles = StyleSheet.create({
-    swiper: {
-        height: 200,
-    },
     img: {
         width: '100%',
-        height: 200,
     }
 });
 export default BannerSwiper
