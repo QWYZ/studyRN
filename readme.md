@@ -18,7 +18,13 @@ andriod 12
 ## 热更新Pushy
 >参考文档：[https://pushy.reactnative.cn/docs/getting-started.html](https://pushy.reactnative.cn/docs/getting-started.html)
 
-## 其他依赖
+## 依赖
+### native-base
+>[安装参考](https://docs.nativebase.io/install-rn)
+>yarn add native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2 
+
+
+
 ### react-native-vector-icons
 >[参考](https://oblador.github.io/react-native-vector-icons/)
 
