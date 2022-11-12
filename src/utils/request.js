@@ -23,7 +23,7 @@ const request = axios.create({
  /**
   * http request 拦截器
   */
-  request.interceptors.request.use(async(config) => {
+  request.interceptors.request.use((config) => {
     // const token = await AsyncStorage.getItem('token')
     // console.log('token_请求拦截', token);
     const headers = {};

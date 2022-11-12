@@ -20,7 +20,7 @@ import { Actionsheet, Button, Center } from 'native-base';
 */
 const ActionsModal = (props) => {
     const {actionOption, isOpen, onClose, size="full"}= props;
-    console.log(props);
+    // console.log(props);
     return (
         <Actionsheet isOpen={isOpen} onClose={onClose} size={size}>
           <Actionsheet.Content>

@@ -5,16 +5,15 @@ import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } 
 import BannerSwiper from '../../components/Banner/BannerSwiper';
 import { getRandomImage } from '../../service/home';
 import { getStorageData } from '../../utils/storage';
-import { ArrayBufferToBase64 } from '../../utils/utils';
+import { ArrayBufferToBase64, blobToBase64 } from '../../utils/utils';
 import deviceInfo from '../../utils/deviceInfo';
 import theme from '../../asset/theme/theme1';
-import { Actionsheet, Button, Center, Icon } from 'native-base';
+import { Actionsheet, Button, Center, Icon, Toast, useToast } from 'native-base';
 import { Path } from 'react-native-svg';
 // import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ActionsModal from '../../components/ActionsModal';
-
 // import { BannerCarousel, BannerSwiper } from '../../components/Banner'
 
 const imageOptions = [
@@ -29,7 +28,7 @@ const Home = (props) => {
   const [randomImage, setRandomImage] = useState(); //随机图片
   const [refreshing, setRefreshing] = useState(false);//下拉刷新状态
   const [visible, setVisible] = useState(false);//
-
+  const toast = useToast();
   const actionOption = [
     {
       key:'download',
@@ -80,10 +79,37 @@ const Home = (props) => {
 
   const getImage = async () => {
     setRefreshing(true);
-    const res = await getRandomImage({ type: 'pe' });
-    const img = ArrayBufferToBase64(res.data);
-    setRandomImage(img);
-    setRefreshing(false);
+    getRandomImage({ type: 'pe' }).then( async(res)=>{
+      const img = await blobToBase64(res.data);
+      // console.log(img);
+      setRandomImage(img);
+      
+    }).catch((err)=>{
+      alert(err);
+      toast.show({
+        description:'请求失败',
+        placement:'bottom',
+        duration:3000
+      })
+    }).finally(()=>{
+      setRefreshing(false);
+    })
+    try {
+      
+      const res = await getRandomImage({ type: 'pe' });
+      // if(res.status === 200){
+      //   toast.show({
+      //     description:'请求成功',
+      //     duration:3000
+      //   })
+      // }
+      
+      // console.log(img);
+
+      
+    } catch (error) {
+
+    }
   }
 
   /**关闭选择框 */
@@ -104,7 +130,7 @@ const Home = (props) => {
         style={{ width: deviceInfo.width, height: deviceInfo.height - 220 }}
         onPress={openModal}
       >
-        <Image style={{ width: '100%', height: '100%' }} resizeMode={'cover'} source={{ uri: randomImage }} />
+        <Image style={{ width: '100%', height: '100%' }} resizeMode={'cover'} source={randomImage?{ uri: randomImage } : require('../../asset/images/imgfail.png')} />
       </TouchableOpacity>
     )
   }
