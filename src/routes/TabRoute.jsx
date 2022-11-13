@@ -1,5 +1,4 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //createNativeStackNavigator是一个函数，它返回一个包含 2 个属性的对象：Screen和Navigator. 它们都是用于配置导航器的 React 组件。
 //Navigator应该包含元素作为其子元素，Screen以定义路由的配置

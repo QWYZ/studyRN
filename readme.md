@@ -30,9 +30,16 @@ andriod 12
 
 # 项目笔记
 ## 1、项目配置
->更改applicationId，位于android/app/build.gradle
->更改app_name，位于android/app/src/main/res/values/strings.xml
->更改AppTheme，位于android/app/src/main/res/values/styles.xml
+>[设置 APP 名称、应用图标参考:](http://t.zoukankan.com/guanpingping-p-11360376.html)
+### 更改applicationId
+>位于android/app/build.gradle
+### 更改应用名称，app_name
+位于android/app/src/main/res/values/strings.xml
+### 修改应用图标
+位于android/app/src/main/res
+### 更改应用主题，AppTheme
+位于android/app/src/main/res/values/styles.xml
+
 
 ## 2、一些指令概念
 ### adb([ADB指令大全](https://blog.csdn.net/u013769274/article/details/89873697))

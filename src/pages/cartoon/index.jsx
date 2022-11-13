@@ -1,33 +1,18 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import BannerSwiper from '../../components/Banner/BannerSwiper';
-import { getRandomImage } from '../../service/home';
-import { getStorageData } from '../../utils/storage';
-import { ArrayBufferToBase64, blobToBase64 } from '../../utils/utils';
-import deviceInfo from '../../utils/deviceInfo';
-import theme from '../../asset/theme/theme1';
-import { Actionsheet, Button, Center, Icon, Toast, useToast } from 'native-base';
+import { Icon, useToast } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Path } from 'react-native-svg';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ActionsModal from '../../components/ActionsModal';
-import NavigationGroup from './components/NavigationGroup';
-import { useLinkTo } from '@react-navigation/native';
+import { getRandomImage } from '../../service/home';
+import deviceInfo from '../../utils/deviceInfo';
+import { blobToBase64 } from '../../utils/utils';
 
-const imageOptions = [
-  { uri: 'https://images.alphacoders.com/128/1283924.jpg' },
-  { uri: 'https://images4.alphacoders.com/112/1129086.png' },
-  { uri: 'https://images2.alphacoders.com/127/1272824.png' }
-]
-
-
-
-const Home = (props) => {
+const Cartoon = () => {
   const [randomImage, setRandomImage] = useState(); //随机图片
   const [refreshing, setRefreshing] = useState(false);//下拉刷新状态
   const [visible, setVisible] = useState(false);//
-  const linkTo = useLinkTo();
   const toast = useToast();
   const actionOption = [
     {
@@ -63,48 +48,6 @@ const Home = (props) => {
       onPress: () => {
         closeModal()
       }
-    }
-  ]
-
-  const navList = [
-    {
-      dot: false,
-      title: '动漫图',
-      onPress: () => {
-        console.log('进入');
-        linkTo('/home/cartoon');
-
-      },
-      img: require('../../asset/images/suber.png'),
-    },
-    {
-      dot: false,
-      title: '动漫图',
-      onPress: () => {
-        console.log('进入');
-        linkTo('/home/cartoon');
-
-      },
-      img: require('../../asset/images/suber.png'),
-    },
-    {
-      dot: false,
-      title: '动漫图',
-      onPress: () => {
-        console.log('进入');
-        linkTo('/home/cartoon');
-
-      },
-      img: require('../../asset/images/suber.png'),
-    },
-    {
-      dot: false,
-      title: '动漫图',
-      onPress: () => {
-        console.log('进入');
-        linkTo('/home/cartoon');
-      },
-      img: require('../../asset/images/suber.png'),
     }
   ]
 
@@ -149,28 +92,22 @@ const Home = (props) => {
   }
 
   const renderMain = () => {
-
     return (
       <View>
-        <NavigationGroup options={navList} />
-
         <TouchableOpacity
           activeOpacity={0.9}
-          style={{ width: deviceInfo.width, height: deviceInfo.height - 220 }}
+          style={{ width: deviceInfo.width, height: deviceInfo.deviceHeight}}
           onPress={openModal}
         >
-          <Image style={{ width: '100%', height: '100%' }} resizeMode={'cover'} source={randomImage ? { uri: randomImage } : require('../../asset/images/imgfail.png')} />
+          <Image style={{ width: '100%', height: '100%' }} resizeMode={'contain'} source={randomImage ? { uri: randomImage } : require('../../asset/images/imgfail.png')} />
         </TouchableOpacity>
       </View>
-
     )
   }
 
-  //  let token = await getStorageData('token');
-  console.log('token2:', deviceInfo.width);
+
   return (
     <View style={styles.container}>
-      <BannerSwiper height={220} images={imageOptions} />
       <FlatList
         // flatlist只能包裹水平滚动的scrollview
         data={[{ id: 'home' }]}
@@ -192,14 +129,14 @@ const Home = (props) => {
         onClose={closeModal}
       />
     </View>
+
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.backgroundColor,
   },
 })
 
-export default Home
+export default Cartoon

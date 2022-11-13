@@ -22,6 +22,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/pages/login';
 import { storeStorageData } from './src/utils/storage';
 import { NativeBaseProvider } from 'native-base';
+import HomeStackScreen from './src/routes/HomeStackScreen';
 
 
 const Stack = createNativeStackNavigator()
@@ -43,6 +44,7 @@ const App: () => Node = () => {
         >
           <Stack.Screen name='tabHome' component={TabRoute} />
           <Stack.Screen name='login' component={Login} />
+          <Stack.Screen name="home" component={HomeStackScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
