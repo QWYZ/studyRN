@@ -17,12 +17,12 @@ import {
   View,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import TabRoute from './src/routes/TabRoute';
+import TabRoute from './src/navigator/TabRoute';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/pages/login';
 import { storeStorageData } from './src/utils/storage';
 import { NativeBaseProvider } from 'native-base';
-import HomeStackScreen from './src/routes/HomeStackScreen';
+import HomeStackScreen from './src/navigator/HomeStackScreen';
 
 
 const Stack = createNativeStackNavigator()

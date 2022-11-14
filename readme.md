@@ -12,21 +12,43 @@ andriod 12
 | react-native | 0.70.4
 | react| 18.1.0
 
+
 ## 路由 (react navigation)
 >参考文档：[https://reactnavigation.org/docs/getting-started](https://reactnavigation.org/docs/getting-started)
 
 ## 热更新Pushy
 >参考文档：[https://pushy.reactnative.cn/docs/getting-started.html](https://pushy.reactnative.cn/docs/getting-started.html)
 
+## 文件
+### jsconfig.json文件
+> 解决在babel.config.js文件中配置别名后，编辑器无法识别别名路径的问题
+> 参考：[https://code.visualstudio.com/docs/languages/jsconfig](https://code.visualstudio.com/docs/languages/jsconfig)
+
+
+
 ## 依赖
+
+### axios
+> 参考文档：[https://www.axios-http.cn/](https://www.axios-http.cn/)
+
+### @react-native-async-storage/async-storage
+存储数据
+
 ### native-base
->[安装参考](https://docs.nativebase.io/install-rn)
->yarn add native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2 
+>参考文档: [https://docs.nativebase.io/install-rn](https://docs.nativebase.io/install-rn)
+```yarn add native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2 ```
 
-
+### react-native-svg
+> provides SVG support to React Native on iOS, Android, macOS, Windows, and a compatibility layer for the web.
 
 ### react-native-vector-icons
->[参考](https://oblador.github.io/react-native-vector-icons/)
+>参考：[https://oblador.github.io/react-native-vector-icons/](https://oblador.github.io/react-native-vector-icons/)
+
+### react-native-linear-gradient
+线性渐变组件
+
+
+
 
 # 项目笔记
 ## 1、项目配置
@@ -51,8 +73,15 @@ adb的全名是Android调试桥,是Android SDK中的工具,操作和管理Androi
 >gradlew是Gradle Wrapper(包装器)
 
 
-
 ## 3、一些问题
+
+### 关于 axios node_modules\axios\lib\utils.js的报错问题
+
+```javaScript
+//第530行代码改为：
+const value = obj?.name;
+```
+
 ### 引入图标失效问题的解决方法
 > 在Android 文件夹下的app文件夹下的build.gradle 里添加上如下：
 ``` 
@@ -67,7 +96,7 @@ project.ext.react = [
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 ```
 
-### react-native默认不支持jsx
+### react-native默认不支持jsx(我这个版本貌似不用配置这玩意)
 >在根目录的metro.config.js添加以下配置：
 ```
 resolver: {
@@ -75,6 +104,16 @@ resolver: {
 }
 ```
 
-## 4、其他
+## 4、关于常用样式的笔记(<_<没记住)
+### justify-content
+> center;     /* 居中排列 */
+> flex-start; /* 从行首起始位置开始排列 */
+> flex-end;   /* 从行尾位置开始排列 */
+> space-between;  /* 均匀排列每个元素 首个元素放置于起点，末尾元素放置于终点 */
+> space-around;  /* 均匀排列每个元素每个元素周围分配相同的空间 */
+> space-evenly;  /* 均匀排列每个元素 每个元素之间的间隔相等 */
+
+
+## 5、其他
 国际化方案参考：[https://blog.csdn.net/isKelel/article/details/123070685](https://blog.csdn.net/isKelel/article/details/123070685)
 第三方APi:[https://github.com/fangzesheng/free-api](https://github.com/fangzesheng/free-api)

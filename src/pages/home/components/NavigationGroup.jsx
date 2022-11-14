@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import deviceInfo from '../../../utils/deviceInfo';
 
 const NavigationGroup = (props) => {
     const { options } = props
@@ -12,15 +13,15 @@ const NavigationGroup = (props) => {
               style={{ justifyContent: 'space-between', alignItems: 'center' }}>
               <Image
                 resizeMode={'cover'}
-                style={{ width: 60, height: 60 }}
+                style={{ width: 60, height: 60, borderRadius:8 }}
                 source={item.img}
               />
-              <View style={{ flexDirection: 'row', marginTop: 6 }}>
+              <View style={{ flexDirection: 'row', marginTop: 4 }}>
                 <Text
                   style={{
                     fontSize: 14,
-                    color: 'black',
-                    fontFamily: 'PingFang-SC-Medium',
+                    color:'gray',
+                    // fontFamily: 'PingFang-SC-Medium',
                   }}>
                   {item.title}
                 </Text>
@@ -44,12 +45,12 @@ const NavigationGroup = (props) => {
 const styles = StyleSheet.create({
     navIcon: {
     //   zIndex: 1000,
-    //   minHeight: height * 0.15,
-      justifyContent: 'space-evenly',
-      marginTop: 10,
+      minHeight: deviceInfo.height * 0.15,
+      justifyContent: 'space-around',
+      // marginTop: 10,
       marginHorizontal: 14,
       backgroundColor: 'white',
-      borderRadius: 10,
+      // borderRadius: 15,
       flexDirection: 'row',
       alignItems: 'center',
     },

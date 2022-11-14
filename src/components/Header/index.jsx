@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, Pressable, StatusBar } from 'react-native';
-import color from '../../asset/theme/theme1';
+import color from '../../assets/theme/theme1';
 import { Icon } from 'native-base';
 
 /**

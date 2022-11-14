@@ -5,7 +5,7 @@ import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Icon, Text } from 'native-base';
-import theme1 from '../asset/theme/theme1';
+import theme1 from '../assets/theme/theme1';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';

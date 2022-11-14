@@ -4,10 +4,10 @@ import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import { Path } from 'react-native-svg';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ActionsModal from '../../components/ActionsModal';
-import { getRandomImage } from '../../service/home';
-import deviceInfo from '../../utils/deviceInfo';
-import { blobToBase64 } from '../../utils/utils';
+import ActionsModal from '@/components/ActionsModal';
+import { getRandomImage } from '@/service/home';
+import deviceInfo from '@/utils/deviceInfo';
+import { blobToBase64 } from '@/utils/utils';
 
 const Cartoon = () => {
   const [randomImage, setRandomImage] = useState(); //随机图片
@@ -99,7 +99,7 @@ const Cartoon = () => {
           style={{ width: deviceInfo.width, height: deviceInfo.deviceHeight}}
           onPress={openModal}
         >
-          <Image style={{ width: '100%', height: '100%' }} resizeMode={'contain'} source={randomImage ? { uri: randomImage } : require('../../asset/images/imgfail.png')} />
+          <Image style={{ width: '100%', height: '100%' }} resizeMode={'contain'} source={randomImage ? { uri: randomImage } : require('../../assets/images/imgfail.png')} />
         </TouchableOpacity>
       </View>
     )

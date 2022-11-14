@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import BannerSwiper from '../../components/Banner/BannerSwiper';
-import { getRandomImage } from '../../service/home';
-import { getStorageData } from '../../utils/storage';
-import { ArrayBufferToBase64, blobToBase64 } from '../../utils/utils';
-import deviceInfo from '../../utils/deviceInfo';
-import theme from '../../asset/theme/theme1';
+import BannerSwiper from '@/components/Banner/BannerSwiper';
+import { getStorageData } from '@/utils/storage';
+import { ArrayBufferToBase64, blobToBase64 } from '@/utils/utils';
+import deviceInfo from '@/utils/deviceInfo';
+import theme from '@/assets/theme/theme1';
 import { Actionsheet, Button, Center, Icon, Toast, useToast } from 'native-base';
 import { Path } from 'react-native-svg';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ActionsModal from '../../components/ActionsModal';
+import ActionsModal from '@/components/ActionsModal';
 import NavigationGroup from './components/NavigationGroup';
 import { useLinkTo } from '@react-navigation/native';
+import { getRandomImage } from '@/service/home';
 
 const imageOptions = [
   { uri: 'https://images.alphacoders.com/128/1283924.jpg' },
@@ -75,7 +75,7 @@ const Home = (props) => {
         linkTo('/home/cartoon');
 
       },
-      img: require('../../asset/images/suber.png'),
+      img: require('../../assets/images/suber.png'),
     },
     {
       dot: false,
@@ -85,7 +85,7 @@ const Home = (props) => {
         linkTo('/home/cartoon');
 
       },
-      img: require('../../asset/images/suber.png'),
+      img: require('../../assets/images/suber.png'),
     },
     {
       dot: false,
@@ -95,7 +95,7 @@ const Home = (props) => {
         linkTo('/home/cartoon');
 
       },
-      img: require('../../asset/images/suber.png'),
+      img: require('../../assets/images/suber.png'),
     },
     {
       dot: false,
@@ -104,9 +104,11 @@ const Home = (props) => {
         console.log('进入');
         linkTo('/home/cartoon');
       },
-      img: require('../../asset/images/suber.png'),
+      img: require('../../assets/images/suber.png'),
     }
   ]
+
+
 
   useEffect(() => {
     getImage()
@@ -159,7 +161,7 @@ const Home = (props) => {
           style={{ width: deviceInfo.width, height: deviceInfo.height - 220 }}
           onPress={openModal}
         >
-          <Image style={{ width: '100%', height: '100%' }} resizeMode={'cover'} source={randomImage ? { uri: randomImage } : require('../../asset/images/imgfail.png')} />
+          <Image style={{ width: '100%', height: '100%' }} resizeMode={'cover'} source={randomImage ? { uri: randomImage } : require('../../assets/images/imgfail.png')} />
         </TouchableOpacity>
       </View>
 
