@@ -31,7 +31,7 @@ const NavigationGroup = (props) => {
                       height: 6,
                       width: 6,
                       borderRadius: 6,
-                      backgroundColor: color.red,
+                      backgroundColor: 'red',
                     }}
                   />
                 )}
@@ -45,9 +45,9 @@ const NavigationGroup = (props) => {
 const styles = StyleSheet.create({
     navIcon: {
     //   zIndex: 1000,
-      minHeight: deviceInfo.height * 0.15,
+      // minHeight: deviceInfo.height * 0.15,
       justifyContent: 'space-around',
-      // marginTop: 10,
+      marginTop: 5,
       marginHorizontal: 14,
       backgroundColor: 'white',
       // borderRadius: 15,

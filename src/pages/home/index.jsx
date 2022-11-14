@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, BackHandler, ToastAndroid } from 'react-native';
 import BannerSwiper from '@/components/Banner/BannerSwiper';
 import { getStorageData } from '@/utils/storage';
 import { ArrayBufferToBase64, blobToBase64 } from '@/utils/utils';
@@ -24,11 +24,13 @@ const imageOptions = [
 
 
 const Home = (props) => {
+  console.log('home页:',props);
   const [randomImage, setRandomImage] = useState(); //随机图片
   const [refreshing, setRefreshing] = useState(false);//下拉刷新状态
   const [visible, setVisible] = useState(false);//
   const linkTo = useLinkTo();
   const toast = useToast();
+  let lastBackPressed = null;
   const actionOption = [
     {
       key: 'download',
@@ -111,16 +113,48 @@ const Home = (props) => {
 
 
   useEffect(() => {
-    getImage()
+    listenBack();
+    getImage();
     let timer = setInterval(() => {
       getImage()
     }, 40000)
 
     return () => {
-      clearInterval(timer)
+      removeListenBack();
+      clearInterval(timer);
     }
   }, [])
 
+  /**监听 ： 两次点击返回按钮退出APP */
+  const listenBack = () => {
+    if (Platform.OS === 'android') {
+      BackHandler.addEventListener('hardwareBackPress', onBackAndroid);
+    }
+  }
+  /**移除监听 ： 两次点击返回按钮退出APP */
+  const removeListenBack = () => {
+    if (Platform.OS === 'android') {
+      BackHandler.removeEventListener('hardwareBackPress', onBackAndroid);
+    }
+  }
+  
+  const onBackAndroid = () => {
+    //判断该页面是否处于聚焦状态
+    if (props) {
+        if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
+            //最近2秒内按过back键，可以退出应用。
+            BackHandler.exitApp();//直接退出APP
+            return false;
+        } else {
+            lastBackPressed = Date.now();
+            ToastAndroid.show('再按一次退出应用', 1000);//提示
+            return true;
+        }
+    }
+
+}
+
+  /**获取随机图片 */
   const getImage = async () => {
     setRefreshing(true);
     getRandomImage({ type: 'pe' }).then(async (res) => {
@@ -154,6 +188,7 @@ const Home = (props) => {
 
     return (
       <View>
+        <NavigationGroup options={navList} />
         <NavigationGroup options={navList} />
 
         <TouchableOpacity
