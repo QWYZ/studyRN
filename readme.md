@@ -61,7 +61,8 @@ andriod 12
 位于android/app/src/main/res
 ### 更改应用主题，AppTheme
 位于android/app/src/main/res/values/styles.xml
-
+### 启动页配置
+参考：[https://blog.csdn.net/weixin_54122176/article/details/127891849?spm=1001.2014.3001.5502](https://blog.csdn.net/weixin_54122176/article/details/127891849?spm=1001.2014.3001.5502)
 
 ## 2、一些指令概念
 ### adb([ADB指令大全](https://blog.csdn.net/u013769274/article/details/89873697))
