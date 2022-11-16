@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, BackHandler, ToastAndroid } from 'react-native';
+import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, BackHandler, ToastAndroid, ImageBackground, NativeModules } from 'react-native';
 import BannerSwiper from '@/components/Banner/BannerSwiper';
 import { getStorageData } from '@/utils/storage';
 import { ArrayBufferToBase64, blobToBase64 } from '@/utils/utils';
@@ -14,7 +14,8 @@ import ActionsModal from '@/components/ActionsModal';
 import NavigationGroup from './components/NavigationGroup';
 import { useLinkTo } from '@react-navigation/native';
 import { getRandomImage } from '@/service/home';
-
+import { requestAndriodPermission } from '@/utils/permission';
+const { SplashScreenModule } = NativeModules;
 const imageOptions = [
   { uri: 'https://images.alphacoders.com/128/1283924.jpg' },
   { uri: 'https://images4.alphacoders.com/112/1129086.png' },
@@ -71,21 +72,18 @@ const Home = (props) => {
   const navList = [
     {
       dot: false,
-      title: '动漫图',
+      title: '启动页',
       onPress: () => {
         console.log('进入');
-        linkTo('/home/cartoon');
-
+        SplashScreenModule.show();
       },
       img: require('../../assets/images/suber.png'),
     },
     {
       dot: false,
-      title: '动漫图',
+      title: '获取权限',
       onPress: () => {
-        console.log('进入');
-        linkTo('/home/cartoon');
-
+        requestAndriodPermission();
       },
       img: require('../../assets/images/suber.png'),
     },
@@ -110,19 +108,22 @@ const Home = (props) => {
     }
   ]
 
+  
 
 
   useEffect(() => {
     listenBack();
     getImage();
+    SplashScreenModule.hide();
     let timer = setInterval(() => {
       getImage()
-    }, 40000)
-
+    }, 40000);
+    
     return () => {
       removeListenBack();
       clearInterval(timer);
     }
+
   }, [])
 
   /**监听 ： 两次点击返回按钮退出APP */
@@ -188,16 +189,21 @@ const Home = (props) => {
 
     return (
       <View>
-        <NavigationGroup options={navList} />
-        <NavigationGroup options={navList} />
+        <BannerSwiper style={styles.bannerSwiper} height={220} images={imageOptions} />
 
-        <TouchableOpacity
+        <View style={{marginHorizontal:15, marginVertical:10, paddingHorizontal:5, paddingVertical:10, backgroundColor:'white', borderRadius:15}}>
+          <NavigationGroup options={navList} />
+          <NavigationGroup options={navList} />
+        </View>
+
+
+        {/* <TouchableOpacity
           activeOpacity={0.9}
           style={{ width: deviceInfo.width, height: deviceInfo.height - 220 }}
           onPress={openModal}
         >
           <Image style={{ width: '100%', height: '100%' }} resizeMode={'cover'} source={randomImage ? { uri: randomImage } : require('../../assets/images/imgfail.png')} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
     )
@@ -207,7 +213,6 @@ const Home = (props) => {
   console.log('token2:', deviceInfo.width);
   return (
     <View style={styles.container}>
-      <BannerSwiper height={220} images={imageOptions} />
       <FlatList
         // flatlist只能包裹水平滚动的scrollview
         data={[{ id: 'home' }]}
@@ -235,8 +240,11 @@ const Home = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.backgroundColor,
+    backgroundColor:'#fff1',
   },
+  bannerSwiper:{
+
+  }
 })
 
 export default Home

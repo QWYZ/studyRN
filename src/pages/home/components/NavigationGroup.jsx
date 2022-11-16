@@ -13,7 +13,7 @@ const NavigationGroup = (props) => {
               style={{ justifyContent: 'space-between', alignItems: 'center' }}>
               <Image
                 resizeMode={'cover'}
-                style={{ width: 60, height: 60, borderRadius:8 }}
+                style={{ width: 50, height: 50, borderRadius:8 }}
                 source={item.img}
               />
               <View style={{ flexDirection: 'row', marginTop: 4 }}>

@@ -1,4 +1,9 @@
 package com.awesomeproject;
+/*=======*/
+import android.content.Intent;
+import android.os.Bundle;
+import com.splashScreen.SplashScreen;
+/*========*/
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,6 +18,17 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "AwesomeProject";
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    SplashScreen.show(this,true);//显示Dialog
+    super.onCreate(savedInstanceState);
+    //解决应用程序多次重启问题
+     if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+           finish();
+           return;
+     }
   }
 
   /**
@@ -45,4 +61,6 @@ public class MainActivity extends ReactActivity {
       return BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     }
   }
+
+
 }

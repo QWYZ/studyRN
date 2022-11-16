@@ -8,10 +8,10 @@ import Swiper from 'react-native-swiper';
  */
 const BannerSwiper = (props) => {
 
-    const { images, height = 200 } = props
+    const { images, height = 200, style } = props
 
     return (
-        <View style={{ height: height }}>
+        <View style={[{ height: height },style]}>
             <Swiper
                 style={styles.swiper}
                 height={height}
