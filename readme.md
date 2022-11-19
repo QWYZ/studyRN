@@ -47,8 +47,15 @@ andriod 12
 ### react-native-linear-gradient
 线性渐变组件
 
+### react-native-fast-image
+快速图片组件
 
+### react-native-swiper
+轮播图组件
 
+### @react-native-camera-roll/camera-roll
+CameraRoll 是一个 react-native 原生模块，提供对本地相机胶卷或照片库的访问。
+[https://github.com/react-native-cameraroll/react-native-cameraroll](https://github.com/react-native-cameraroll/react-native-cameraroll)
 
 # 项目笔记
 ## 1、项目配置

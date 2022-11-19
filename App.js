@@ -6,9 +6,10 @@
  * @flow strict-local
  */
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import type { Node } from 'react';
 import {
+  NativeModules,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -27,6 +28,10 @@ import HomeStackScreen from './src/navigator/HomeStackScreen';
 
 const Stack = createNativeStackNavigator()
 const App: () => Node = () => {
+
+  useEffect(()=>{
+    NativeModules.SplashScreenModule.hide();//关闭启动页
+  },[])
   storeStorageData('token', '123456');
 
   const TabRouteCallBack = useCallback(() => <TabRoute />, [])

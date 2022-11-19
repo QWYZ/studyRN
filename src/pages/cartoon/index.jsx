@@ -1,13 +1,16 @@
-import { Icon, useToast } from 'native-base';
+import { Icon, Toast, useToast } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Pressable, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
 import { Path } from 'react-native-svg';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ActionsModal from '@/components/ActionsModal';
+import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 import { getRandomImage } from '@/service/home';
 import deviceInfo from '@/utils/deviceInfo';
 import { blobToBase64 } from '@/utils/utils';
+import { checkAndriodPermission } from '@/utils/permission';
+import { DownloadImage, downloadImageBase64, DownloadLocalImage } from '@/utils/download';
 
 const Cartoon = () => {
   const [randomImage, setRandomImage] = useState(); //随机图片
@@ -19,8 +22,20 @@ const Cartoon = () => {
       key: 'download',
       name: '下载',
       icon: <Icon as={Ionicons} size="6" name="cloud-download" />,
-      onPress: () => {
-
+      onPress: async() => {
+        try {
+          let res = await downloadImageBase64(randomImage);      
+          toast.show({
+            description:'已保存到相册',
+            duration:1000
+          })
+        } catch (error) {
+          toast.show({
+            description:'下载失败',
+            duration:1000
+          })
+        }
+        setVisible(false);
       }
     },
     {
@@ -28,7 +43,7 @@ const Cartoon = () => {
       name: '收藏',
       icon: <Icon as={MaterialIcons} size="6" name="favorite" />,
       onPress: () => {
-
+        
       }
     },
     {
@@ -94,13 +109,13 @@ const Cartoon = () => {
   const renderMain = () => {
     return (
       <View>
-        <TouchableOpacity
-          activeOpacity={0.9}
+        <Pressable
+          // activeOpacity={0.9}
           style={{ width: deviceInfo.width, height: deviceInfo.deviceHeight}}
           onPress={openModal}
         >
           <Image style={{ width: '100%', height: '100%' }} resizeMode={'contain'} source={randomImage ? { uri: randomImage } : require('../../assets/images/imgfail.png')} />
-        </TouchableOpacity>
+        </Pressable>
       </View>
     )
   }

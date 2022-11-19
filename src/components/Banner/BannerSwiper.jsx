@@ -1,10 +1,11 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Swiper from 'react-native-swiper';
+import FastImage from 'react-native-fast-image';
 
 /**
  * 轮播图
- * @destription 基于'react-native-swiper'构建，循环滚动时会闪屏
+ * @destription 
  */
 const BannerSwiper = (props) => {
 
@@ -27,7 +28,7 @@ const BannerSwiper = (props) => {
                     images.map((item, i) => {
 
                         return (
-                            <Image key={i} source={{ uri: item.uri }} style={{...styles.img,height:height}} />
+                            <FastImage key={i} source={{ uri: item.uri }} style={{...styles.img,height:height}} />
                         )
                     })
                 }

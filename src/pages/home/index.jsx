@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, BackHandler, ToastAndroid, ImageBackground, NativeModules } from 'react-native';
+import { FlatList, StatusBar, StyleSheet, Image, Text, TouchableOpacity, View, BackHandler, ToastAndroid, ImageBackground, NativeModules, PermissionsAndroid } from 'react-native';
 import BannerSwiper from '@/components/Banner/BannerSwiper';
 import { getStorageData } from '@/utils/storage';
 import { ArrayBufferToBase64, blobToBase64 } from '@/utils/utils';
@@ -13,8 +13,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ActionsModal from '@/components/ActionsModal';
 import NavigationGroup from './components/NavigationGroup';
 import { useLinkTo } from '@react-navigation/native';
+import { useLinkProps } from '@react-navigation/native';
 import { getRandomImage } from '@/service/home';
-import { requestAndriodPermission } from '@/utils/permission';
+import { checkAndriodPermission, requestAndriodPermission, requestMultipleAndriodPermission } from '@/utils/permission';
 const { SplashScreenModule } = NativeModules;
 const imageOptions = [
   { uri: 'https://images.alphacoders.com/128/1283924.jpg' },
@@ -25,7 +26,7 @@ const imageOptions = [
 
 
 const Home = (props) => {
-  console.log('home页:',props);
+  // console.log('home页:', props);
   const [randomImage, setRandomImage] = useState(); //随机图片
   const [refreshing, setRefreshing] = useState(false);//下拉刷新状态
   const [visible, setVisible] = useState(false);//
@@ -74,16 +75,34 @@ const Home = (props) => {
       dot: false,
       title: '启动页',
       onPress: () => {
-        console.log('进入');
-        SplashScreenModule.show();
+        toast.show({ description: '此功能已关闭', duration: 1000 });
+        // SplashScreenModule.show();
       },
       img: require('../../assets/images/suber.png'),
     },
     {
       dot: false,
       title: '获取权限',
-      onPress: () => {
-        requestAndriodPermission();
+      onPress: async () => {
+        let check = await checkAndriodPermission(['CAMERA']);
+        if (check) {
+          linkTo('/home/cartoon');
+        } else {
+          requestAndriodPermission('CAMERA');
+        }
+      },
+      img: require('../../assets/images/suber.png'),
+    },
+    {
+      dot: false,
+      title: '多项权限',
+      onPress: async () => {
+        let check = await checkAndriodPermission(['CAMERA', 'WRITE_EXTERNAL_STORAGE', 'READ_EXTERNAL_STORAGE']);
+        if (check) {
+          linkTo('/home/cartoon');
+        } else {
+          requestMultipleAndriodPermission(['CAMERA', 'WRITE_EXTERNAL_STORAGE', 'READ_EXTERNAL_STORAGE'])
+        }
       },
       img: require('../../assets/images/suber.png'),
     },
@@ -93,35 +112,30 @@ const Home = (props) => {
       onPress: () => {
         console.log('进入');
         linkTo('/home/cartoon');
-
       },
       img: require('../../assets/images/suber.png'),
     },
     {
       dot: false,
-      title: '动漫图',
+      title: '支付',
       onPress: () => {
-        console.log('进入');
-        linkTo('/home/cartoon');
+        console.log('进入支付');
+        // linkTo('/home/cartoon');
       },
       img: require('../../assets/images/suber.png'),
     }
   ]
 
-  
+
 
 
   useEffect(() => {
     listenBack();
-    getImage();
-    SplashScreenModule.hide();
-    let timer = setInterval(() => {
-      getImage()
-    }, 40000);
-    
+    // getImage();
+    // SplashScreenModule.hide();
     return () => {
       removeListenBack();
-      clearInterval(timer);
+      // clearInterval(timer);
     }
 
   }, [])
@@ -138,22 +152,22 @@ const Home = (props) => {
       BackHandler.removeEventListener('hardwareBackPress', onBackAndroid);
     }
   }
-  
+
   const onBackAndroid = () => {
     //判断该页面是否处于聚焦状态
     if (props) {
-        if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
-            //最近2秒内按过back键，可以退出应用。
-            BackHandler.exitApp();//直接退出APP
-            return false;
-        } else {
-            lastBackPressed = Date.now();
-            ToastAndroid.show('再按一次退出应用', 1000);//提示
-            return true;
-        }
+      if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
+        //最近2秒内按过back键，可以退出应用。
+        BackHandler.exitApp();//直接退出APP
+        return false;
+      } else {
+        lastBackPressed = Date.now();
+        ToastAndroid.show('再按一次退出应用', 1000);//提示
+        return true;
+      }
     }
 
-}
+  }
 
   /**获取随机图片 */
   const getImage = async () => {
@@ -164,7 +178,6 @@ const Home = (props) => {
       setRandomImage(img);
 
     }).catch((err) => {
-      alert(err);
       toast.show({
         description: '请求失败',
         placement: 'bottom',
@@ -185,25 +198,39 @@ const Home = (props) => {
     setVisible(true)
   }
 
+  const NavRender = () => {
+
+    return (
+      <View style={styles.navBody}>
+        <View style={styles.bgImage}><Text></Text></View>
+        <View style={{ position: 'absolute', width: deviceInfo.width, height: 200, top: 0 }}>
+          <View style={{ marginHorizontal: 15, marginVertical: 10, paddingHorizontal: 5, paddingVertical: 10, backgroundColor: 'white', borderRadius: 15 }}>
+            <NavigationGroup options={navList} />
+            {/* <NavigationGroup options={navList} /> */}
+          </View>
+        </View>
+      </View>
+    )
+  }
+
   const renderMain = () => {
 
     return (
       <View>
-        <BannerSwiper style={styles.bannerSwiper} height={220} images={imageOptions} />
-
-        <View style={{marginHorizontal:15, marginVertical:10, paddingHorizontal:5, paddingVertical:10, backgroundColor:'white', borderRadius:15}}>
-          <NavigationGroup options={navList} />
-          <NavigationGroup options={navList} />
+        <BannerSwiper height={230} images={imageOptions} />
+        <NavRender />
+        <View>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={()=>{linkTo('/home/cartoon');}}
+          >
+            <Image
+              style={{ width: deviceInfo.width, height: deviceInfo.height - 400 }}
+              resizeMode={'contain'}
+              source={randomImage ? { uri: randomImage } : require('../../assets/images/imgfail.png')}
+            />
+          </TouchableOpacity>
         </View>
-
-
-        {/* <TouchableOpacity
-          activeOpacity={0.9}
-          style={{ width: deviceInfo.width, height: deviceInfo.height - 220 }}
-          onPress={openModal}
-        >
-          <Image style={{ width: '100%', height: '100%' }} resizeMode={'cover'} source={randomImage ? { uri: randomImage } : require('../../assets/images/imgfail.png')} />
-        </TouchableOpacity> */}
       </View>
 
     )
@@ -228,23 +255,32 @@ const Home = (props) => {
         showsVerticalScrollIndicator={false} // 隐藏垂直滚动条
       />
       {/* {actionsheetRender()} */}
-      <ActionsModal
+      {/* <ActionsModal
         actionOption={actionOption}
         isOpen={visible}
         onClose={closeModal}
-      />
+      /> */}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor:'#fff1',
+    // flex: 1,
+    backgroundColor: '#fff1',
   },
-  bannerSwiper:{
-
-  }
+  navBody: {
+    position: 'relative',
+    height: 120,
+    // borderColor:'red',
+    // borderWidth:1
+  },
+  bgImage: {
+    height: 100,
+    backgroundColor: theme.primary,
+    borderBottomLeftRadius: deviceInfo.height * 0.1,
+    borderBottomRightRadius: deviceInfo.height * 0.1,
+  },
 })
 
 export default Home
