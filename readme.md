@@ -57,6 +57,9 @@ andriod 12
 CameraRoll 是一个 react-native 原生模块，提供对本地相机胶卷或照片库的访问。
 [https://github.com/react-native-cameraroll/react-native-cameraroll](https://github.com/react-native-cameraroll/react-native-cameraroll)
 
+### react-native-image-crop-picker
+iOS/Android 图像选择器，支持相机、视频、可配置压缩、多图像和裁剪
+
 # 项目笔记
 ## 1、项目配置
 >[设置 APP 名称、应用图标参考:](http://t.zoukankan.com/guanpingping-p-11360376.html)

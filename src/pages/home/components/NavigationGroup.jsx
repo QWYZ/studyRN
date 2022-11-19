@@ -1,7 +1,6 @@
 import React from 'react'
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import deviceInfo from '../../../utils/deviceInfo';
-import FastImage from 'react-native-fast-image';
 
 const NavigationGroup = (props) => {
     const { options } = props
@@ -12,7 +11,7 @@ const NavigationGroup = (props) => {
               key={`nav${i}`}
               onPress={item.onPress}
               style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-              <FastImage
+              <Image
                 resizeMode={'cover'}
                 style={{ width: 50, height: 50, borderRadius:8 }}
                 source={item.img}

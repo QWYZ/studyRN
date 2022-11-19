@@ -120,6 +120,7 @@ const Home = (props) => {
       title: '支付',
       onPress: () => {
         console.log('进入支付');
+        toast.show({ description: '此功能已关闭', duration: 1000 });
         // linkTo('/home/cartoon');
       },
       img: require('../../assets/images/suber.png'),
@@ -131,7 +132,7 @@ const Home = (props) => {
 
   useEffect(() => {
     listenBack();
-    // getImage();
+    getImage();
     // SplashScreenModule.hide();
     return () => {
       removeListenBack();
@@ -203,7 +204,7 @@ const Home = (props) => {
     return (
       <View style={styles.navBody}>
         <View style={styles.bgImage}><Text></Text></View>
-        <View style={{ position: 'absolute', width: deviceInfo.width, height: 200, top: 0 }}>
+        <View style={{ position: 'absolute', width: '100%', height: 200, top: 0 }}>
           <View style={{ marginHorizontal: 15, marginVertical: 10, paddingHorizontal: 5, paddingVertical: 10, backgroundColor: 'white', borderRadius: 15 }}>
             <NavigationGroup options={navList} />
             {/* <NavigationGroup options={navList} /> */}
@@ -225,7 +226,7 @@ const Home = (props) => {
             onPress={()=>{linkTo('/home/cartoon');}}
           >
             <Image
-              style={{ width: deviceInfo.width, height: deviceInfo.height - 400 }}
+              style={{ width: '100%', height: deviceInfo.height - 400 }}
               resizeMode={'contain'}
               source={randomImage ? { uri: randomImage } : require('../../assets/images/imgfail.png')}
             />

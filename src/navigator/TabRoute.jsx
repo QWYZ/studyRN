@@ -33,11 +33,11 @@ const TabRoute = () => {
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
-                    if (route.name === 'Home') {
+                    if (route.name === 'homePage') {
                         iconName = focused
                             ? 'home'
                             : 'home-outline';
-                    } else if (route.name === 'User') {
+                    } else if (route.name === 'userPage') {
                         iconName = focused ? 'person' : 'person-outline';
                     }
                     // You can return any component that you like here!
@@ -49,8 +49,8 @@ const TabRoute = () => {
                 // tabBarStyle:Platform.OS === 'ios' ?{paddingBottom:5}:null
             })}
         >
-            <Tab.Screen name="Home" component={Home} options={{ title: '首页' }}/>
-            <Tab.Screen name="User" component={User} options={{ title: '我的' }}/>
+            <Tab.Screen name="homePage" component={Home} options={{ title: '首页' }}/>
+            <Tab.Screen name="userPage" component={User} options={{ title: '我的' }}/>
         </Tab.Navigator>
     )
 }

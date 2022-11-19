@@ -13,7 +13,8 @@ export const downloadImage = (uri) => {
     return new Promise((resolve, reject) => {
         let timestamp = (new Date()).getTime();//获取当前时间错
         let random = String(((Math.random() * 1000000) | 0))//六位随机数
-        let dirs = Platform.OS === 'ios' ? RNFS.LibraryDirectoryPath : RNFS.ExternalDirectoryPath; //外部文件，共享目录的绝对路径（仅限android）
+        let dirs = Platform.OS === 'ios' ? 
+        RNFS.LibraryDirectoryPath : RNFS.ExternalDirectoryPath; //外部文件，共享目录的绝对路径（仅限android）
         const downloadDest = `${dirs}/${timestamp + random}.jpg`;
         const formUrl = uri;
         const options = {
@@ -26,10 +27,8 @@ export const downloadImage = (uri) => {
             },
         };
         try {
-            const ret = RNFS.downloadFile(options);
-            ret.promise.then(res => {
-                // console.log('success', res);
-                // console.log('file://' + downloadDest)
+            const res = RNFS.downloadFile(options);
+            res.promise.then(res => {
                 var promise = CameraRoll.save(downloadDest);
                 promise.then(function (result) {
                     alert('保存成功！地址如下：' + result);
@@ -85,10 +84,7 @@ export const downloadLocalImage = (ImageUrl) => {
 export const downloadImageBase64 = async (base64Image) => {
     if (!base64Image) return null;
     let image_data = base64Image.split("data:image/png;base64,")
-    // if(image_data[0] == )
     const file_path = RNFetchBlob.fs.dirs.DCIMDir + '/' + new Date().getTime() + "/image.png";
-    console.log('file_path',RNFetchBlob.fs.dirs.DCIMDir ,file_path);
-    console.log(image_data[1]);
 
     RNFetchBlob.fs.writeFile(file_path, image_data[1], 'base64').then((res) => {
         return CameraRoll.save(`file://${file_path}`)
