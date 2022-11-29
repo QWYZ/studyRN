@@ -35,9 +35,11 @@ andriod 12
 存储数据
 
 ### native-base
->参考文档: [https://docs.nativebase.io/install-rn](https://docs.nativebase.io/install-rn)
-```yarn add native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2 ```
+> 参考文档: [https://docs.nativebase.io/install-rn](https://docs.nativebase.io/install-rn)
+>```yarn add native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2 ```
 
+###  React Native Elements （@rneui/themed、@rneui/base）
+> 参考文档：[https://reactnativeelements.com/](https://reactnativeelements.com/)
 ### react-native-svg
 > provides SVG support to React Native on iOS, Android, macOS, Windows, and a compatibility layer for the web.
 

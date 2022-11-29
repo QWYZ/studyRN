@@ -117,11 +117,11 @@ const Home = (props) => {
     },
     {
       dot: false,
-      title: '支付',
+      title: '商品',
       onPress: () => {
-        console.log('进入支付');
-        toast.show({ description: '此功能已关闭', duration: 1000 });
-        // linkTo('/home/cartoon');
+        // console.log('进入支付');
+        // toast.show({ description: '此功能已关闭', duration: 1000 });
+        linkTo('/home/goodlist');
       },
       img: require('../../assets/images/suber.png'),
     }

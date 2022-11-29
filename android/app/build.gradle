@@ -265,9 +265,9 @@ dependencies {
     // 如果只需要支持WebP格式而不需要动图
     // implementation 'com.facebook.fresco:webpsupport:2.5.0'
     //提供文件图片下载到本地
-    implementation project(':@react-native-camera-roll_camera-roll')
-    implementation project(':react-native-fs')
-    implementation project(':rn-fetch-blob')
+    // implementation project(':@react-native-camera-roll_camera-roll')
+    // implementation project(':react-native-fs')
+    // implementation project(':rn-fetch-blob')
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

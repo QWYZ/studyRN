@@ -11,6 +11,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 //page view 
 import Cartoon from '../pages/cartoon';
+import GoodList from '@/pages/goods/good-list';
 
 
 const HomeStack = createStackNavigator();
@@ -46,7 +47,11 @@ function HomeStackScreen({ navigation, route }) {
                 component={Cartoon}
                 options={{ headerShown: false }}
             />
-
+            <HomeStack.Screen
+                name="goodlist"
+                component={GoodList}
+                options={{ headerShown: true, title:'商品列表', headerRight:false }}
+            />
 
         </HomeStack.Navigator>
     );
