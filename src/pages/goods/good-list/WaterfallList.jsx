@@ -1,13 +1,13 @@
 import { Spinner } from 'native-base';
 import React from 'react'
-import { StyleSheet, Text, View, VirtualizedList } from 'react-native'
+import { FlatList, StyleSheet, Text, View, VirtualizedList } from 'react-native'
 import GoodsCard from './GoodsCard';
 
 const WaterfallList = (props) => {
 
     const { data, loading, onEndReached, onEndReachedThreshold } = props;
 
-    const _renderItem = (item) => {
+    const _renderItem = ({item}) => {
         return (
             <GoodsCard data={item} onPress={() => { }} />
         )
@@ -34,7 +34,33 @@ const WaterfallList = (props) => {
         )
     }
 
+    const _renderMain2 = () => {
+        return (
+            <View style={styles.container}>
+                {
+                    data && data.length > 0 &&
+                    data.map((columndata, i) => {
+                        return (
+                            <VirtualizedList 
+                                key={`column${i}`} 
+                                listKey={`column${columndata.key}`} 
+                                data={columndata.data}
+                                initialNumToRender={5}
+                                renderItem={ _renderItem}
+                                keyExtractor={(item) => item.id}
+                                getItemCount={(data) => data.length}
+                                getItem={(data, index) => data[index]}
+                                scrollEnabled={false}
+                            />
+                        )
+                    })
+                }
+            </View>
+        )
+    }
+
     const _renderFooter = () => {
+
         return (
             <View style={{ marginVertical: 10 }}>
                 {
@@ -53,7 +79,7 @@ const WaterfallList = (props) => {
         <VirtualizedList
             data={data}
             initialNumToRender={5}
-            renderItem={_renderMain}
+            renderItem={_renderMain2}
             keyExtractor={() => 'WaterfallList'}
             getItemCount={(data) => 1}
             getItem={(data, index) => data[index]}

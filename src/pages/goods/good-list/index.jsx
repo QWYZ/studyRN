@@ -22,7 +22,7 @@ const GoodList = () => {
         if(loading){return}
         setLoading(true);
         const _dataList = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 100; i++) {
             const deData1 = {
                 id: Math.random().toString(8).substring(0),
                 imgUrl: 'https://img.zcool.cn/community/012a5c5c74acf7a801203d226c61d0.jpg',
@@ -63,7 +63,7 @@ const GoodList = () => {
                 onEndReached={(info)=>{
                     getDataList()
                 }}
-                onEndReachedThreshold={1}
+                onEndReachedThreshold={10}
             />
         </SafeAreaView>
     )
