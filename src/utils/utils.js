@@ -101,16 +101,23 @@ const sumImageH = (arr) => {
  * 根据图片高度拆分成两个数组(图片瀑布流)
  * @param {*} arr 
  */
-export const splitImagesArray = (arr) => {
+export const splitImagesArray = (oldData, arr) => {
 	let list = [...arr];
-	const heightSum = Math.ceil(sumImageH(arr)/2); //数组和除以2向上取整）
+	let heightSum = Math.ceil(sumImageH(arr)/2); //数组和除以2向上取整）
 	// console.log('heightSum',heightSum);
 	// list = list.sort(function(a,b){return b.height-a.height});//倒序
+	
 	let arr1=[], 
 		arr2=[], 
 		arrSum1=0,
-		arrSum2=0
-
+		arrSum2=0;
+	if(oldData && oldData.length>0){
+		arr1 = oldData[0].data
+		arr2 = oldData[1].data
+		arrSum1 = oldData[0].totalH
+		arrSum2 = oldData[1].totalH
+		heightSum = Math.ceil((sumImageH(arr) + oldData[0].totalH + oldData[1].totalH)/2);
+	}
 	for(let i=0; i<list.length; i++) {
 		var data = list[i];
 		if(arrSum1 <= arrSum2 && (arrSum1 + data.height) <= heightSum) {

@@ -26,6 +26,7 @@ const GoodsCard = (props) => {
             <View style={styles.content}>
                 <Text style={styles.title}>{data.name}</Text>
                 <Text style={styles.price}>{data.name}</Text>
+                <Text style={styles.price}>{data.sortindex}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -34,7 +35,8 @@ const GoodsCard = (props) => {
 const styles = StyleSheet.create({
     item: {
         margin: 4,
-
+        borderRadius: 4,
+        overflow:'hidden'
     },
     content:{
         width:'100%',
